@@ -2,16 +2,16 @@ PATH := ./node_modules/.bin:${PATH}
 
 .PHONY : init clean build dist publish
 
+dist: clean init build
+
 init:
 	npm install
-
-clean:
-	rm -rf lib/
 
 build:
 	coffee -o lib/ -c src/
 
-dist: clean init build
-
 publish: dist
 	npm publish
+
+clean:
+	rm -rf lib/

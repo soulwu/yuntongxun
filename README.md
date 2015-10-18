@@ -33,10 +33,13 @@ $ npm install yuntongxun-sdk
 Todo List
 ---------
 
-1. To implement TemplateSMS interface.
-2. To implement other Rest API interface.
+1. [x] To implement TemplateSMS interface.
+2. [ ] To implement other Rest API interface.
 
 
+ChangeLog
+---------
+[Change Log](CHANGELOG.md)
 
 License
 -------

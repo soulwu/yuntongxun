@@ -46,7 +46,7 @@ class Yuntongxun
   voiceVerify: (mobile, token, displayNum = '', playTimes = 3) ->
     deferred = Q.defer()
     if not mobile or not token
-      deferred.reject new Error 'mobile or token empty'
+      deferred.reject 'mobile or token empty'
     else
       timestamp = dateFormat new Date(), 'yyyymmddHHMMss'
       opts =
@@ -64,22 +64,59 @@ class Yuntongxun
         @_logger "opts: #{JSON.stringify opts}"
       @_rs.post '/Calls/VoiceVerify', opts, (err, response, body) =>
         if err
-          @_logger "Call yuntongxun voiceVerify failed. err[#{err}]"
+          @_logger "Request voiceVerify failed. err[#{err}]"
           deferred.reject err
           return
         if not body
-          @_logger "Call yuntongxun voiceVerify err. statusCode[#{response.statusCode}] statusMessage[#{response.statusMessage}]"
+          @_logger "Request voiceVerify err. statusCode[#{response.statusCode}] statusMessage[#{response.statusMessage}]"
           deferred.reject 'null response body'
           return
         if body.statusCode and body.statusCode is '000000'
           callSid = body.VoiceVerify && body.VoiceVerify.callSid
-          @_logger "Call yuntongxun voiceVerify succ. callSid[#{callSid}]"
+          @_logger "Request voiceVerify succ. callSid[#{callSid}]"
           deferred.resolve callSid
         else
-          @_logger "Call yuntongxun voiceVerify err. body[#{JSON.stringify body}]"
+          @_logger "Request voiceVerify err. body[#{JSON.stringify body}]"
           deferred.reject 'response invalid'
       .on 'complete', (response) =>
-        @_logger "Call yuntongxun complete. elapsedTime[#{response.elapsedTime}]"
+        @_logger "Request complete. elapsedTime[#{response.elapsedTime}]"
+    deferred.promise
+  templateSms: (mobile, templateId, datas = []) ->
+    deferred = Q.defer()
+    if not mobile or not templateId
+      deferred.reject 'mobile or templateId empty'
+    else
+      timestamp = dateFormat new Date(), 'yyyymmddHHMMss'
+      opts =
+        headers:
+          authorization: @_getAuthorization timestamp
+        qs:
+          sig: @_getSig timestamp
+        body:
+          appId: @options.appId
+          to: mobile
+          templateId: templateId
+          datas: datas
+      if @options.debug
+        @_logger "opts: #{JSON.stringfy opts}"
+      @_rs.post '/SMS/TemplateSMS', opts, (err, response, body) =>
+        if err
+          @_logger "Request templateSms failed. err[#{err}]"
+          deferred.reject err
+          return
+        if not body
+          @_logger "Request templateSms err. statusCode[#{response.statusCode}] statusMessage[#{response.statusMessage}]"
+          deferred.reject 'null response body'
+          return
+        if body.statusCode and body.statusCode is '000000'
+          smsMessageSid = body.TemplateSMS && body.TemplateSMS.smsMessageSid
+          @_logger "Request templateSms succ. smsMessageSid[#{smsMessageSid}]"
+          deferred.resolve smsMessageSid
+        else
+          @_logger "Request voiceVerify err. body[#{JSON.stringify body}]"
+          deferred.reject 'response invalid'
+      .on 'complete', (response) =>
+        @_logger "Request complete. elapsedTime[#{response.elapsedTime}]"
     deferred.promise
 
 module.exports = Yuntongxun

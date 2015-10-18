@@ -17,12 +17,7 @@ fi
 npm version minor || exit 1
 
 # Generate changelog from pull requests
-github-changes -o request -r request \
-  --auth --verbose \
-  --file CHANGELOG.md \
-  --only-pulls --use-commit-body \
-  --date-format '(YYYY/MM/DD)' \
-  || exit 1
+github-changes -o soulwu -r yuntongxun -a -v -f CHANGELOG.md --only-pulls --use-commit-body -m '(YYYY/MM/DD)' || exit 1
 
 # Since the tag for the new version hasn't been pushed yet, any changes in it
 # will be marked as "upcoming"

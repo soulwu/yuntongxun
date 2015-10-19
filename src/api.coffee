@@ -11,17 +11,22 @@ class Yuntongxun
     accountSid: ''
     authToken: ''
     appId: ''
+    useSubAccount: false
+    debug: false
+    logger: false
   constructor: (@options) ->
     _.defaults @options, Yuntongxun.defaultOptions
     if @options.logger
       @_logger = @options.logger
-      delete @options.logger
     else if @options.debug
       @_logger = console.log.bind console
     else
       @_logger = _.noop
+    accountType = 'Accounts'
+    if @options.useSubAccount
+      accountType = 'SubAccounts'
     @_rs = request.defaults
-      baseUrl: "#{@options.urlPrefix}/#{@options.version}/Accounts/#{@options.accountSid}"
+      baseUrl: "#{@options.urlPrefix}/#{@options.version}/#{accountType}/#{@options.accountSid}"
       strictSSL: false
       timeout: @options.timeout
       proxy: @options.proxy

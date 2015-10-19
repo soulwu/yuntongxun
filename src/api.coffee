@@ -12,11 +12,12 @@ class Yuntongxun
     authToken: ''
     appId: ''
     useSubAccount: false
+    debug: false
+    logger: false
   constructor: (@options) ->
     _.defaults @options, Yuntongxun.defaultOptions
     if @options.logger
       @_logger = @options.logger
-      delete @options.logger
     else if @options.debug
       @_logger = console.log.bind console
     else

@@ -1,5 +1,8 @@
 ## Change Log
 
+### v0.4.0 (2015/10/19)
+- [#3](https://github.com/soulwu/yuntongxun/pull/3) V0.4.0 (@soulwu)
+
 ### v0.3.0 (2015/10/18)
 - [#2](https://github.com/soulwu/yuntongxun/pull/2) all Template sms support (@soulwu)
 

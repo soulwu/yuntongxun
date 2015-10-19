@@ -72,7 +72,7 @@ Construct a new yuntongxun object
 | useSubAccount | bool     | Whether use subAccountSid or accountSid | optional    |
 | debug         | bool     | Debug toggle                            | optional    |
 | logger        | function | A logger handler                        | optional    |
-| proxy         | string   | Proxy for someone behind a fireware     | optional    |
+| proxy         | string   | Proxy for someone behind a firewall     | optional    |
 | timeout       | integer  | Timeout for request                     | optional    |
 
 `logger` function accept only one argument `msg` like

@@ -35,10 +35,10 @@ Documents
 [Official Rest API document](http://docs.yuntongxun.com/index.php/Rest%E4%BB%8B%E7%BB%8D)
 
 ### Table of Contents
-- Class: Yuntongxun
-    - new Yuntongxun(options)
-    - yuntongxun.voiceVerify(mobile, token[, displayNum, playTimes])
-    - yuntongxun.templateSms(mobile, templateId[, datas])
+- [Class: Yuntongxun](#class-yuntongxun)
+    - [new Yuntongxun(options)](#new-yuntongxunoptions)
+    - [yuntongxun.voiceVerify(mobile, token[, displayNum, playTimes])](#yuntongxunvoiceverifymobile-token-displaynum-playtimes)
+    - [yuntongxun.templateSms(mobile, templateId[, datas])](#yuntongxuntemplatesmsmobile-templateid-datas)
 
 ### Class: Yuntongxun
 This class is a wrapper for yuntongxun Rest API

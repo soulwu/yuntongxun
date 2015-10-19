@@ -8,12 +8,6 @@ class Yuntongxun
   @defaultOptions:
     urlPrefix: 'https://app.cloopen.com:8883'
     version: '2013-12-26'
-    accountSid: ''
-    authToken: ''
-    appId: ''
-    useSubAccount: false
-    debug: false
-    logger: false
   constructor: (@options) ->
     _.defaults @options, Yuntongxun.defaultOptions
     if @options.logger

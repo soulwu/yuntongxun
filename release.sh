@@ -24,6 +24,8 @@ github-changes -o soulwu -r yuntongxun -a -v -f CHANGELOG.md --only-pulls --use-
 version="$(grep '"version"' package.json | cut -d'"' -f4)"
 sed -i -e "s/^### upcoming/### v${version}/" CHANGELOG.md
 
+rm -f CHANGELOG.md-e
+
 # This may fail if no changelog updates
 # TODO: would this ever actually happen?  handle it better?
 git add CHANGELOG.md; git commit -m 'Update changelog'

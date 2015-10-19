@@ -1,6 +1,8 @@
 # yuntongxun
 Node.js SDK for yuntongxun RestAPI.
 
+[![Build Status](https://travis-ci.org/soulwu/yuntongxun.svg?branch=master)](https://travis-ci.org/soulwu/yuntongxun)
+
 Examples
 --------
 

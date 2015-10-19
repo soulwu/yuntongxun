@@ -23,6 +23,9 @@
     "url": "https://github.com/soulwu/yuntongxun/issues"
   },
   "homepage": "https://github.com/soulwu/yuntongxun#readme",
+  "engines": {
+    "node": ">=0.10.0"
+  },
   "dependencies": {
     "dateformat": "^1.0.11",
     "lodash": "^3.10.1",

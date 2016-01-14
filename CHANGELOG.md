@@ -1,5 +1,8 @@
 ## Change Log
 
+### v1.1.0 (2016/01/14)
+- [#5](https://github.com/soulwu/yuntongxun/pull/5) ES6改造 (@soulwu)
+
 ### v0.6.0 (2015/10/19)
 - [#4](https://github.com/soulwu/yuntongxun/pull/4) update document for proxy and timeout (@soulwu)
 

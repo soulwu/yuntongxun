@@ -1,29 +1,3 @@
 {
-  "parser": "babel-eslint",
-  "env": {
-    "node": true,
-    "es6": true
-  },
-  "rules": {
-    "comma-dangle": [2, "never"],
-    "object-curly-spacing": [2, "never"],
-    "no-const-assign": 2,
-    "no-var": 2,
-    "prefer-const": 2,
-    "no-dupe-args": 2,
-    "no-dupe-keys": 2,
-    "no-duplicate-case": 2,
-    "no-empty": 2,
-    "no-extra-semi": 2,
-    "no-unreachable": 2,
-    "no-undef": 2,
-    "array-bracket-spacing": [2, "never"],
-    "camelcase": [2, {"properties": "never"}],
-    "comma-spacing": [2, {"before": false, "after": true}],
-    "eol-last": 2,
-    "indent": [2, 2, {"SwitchCase": 1, "VariableDeclarator": 1}],
-    "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
-    "no-new-object": 2,
-    "semi": [2, "always"]
-  }
+  "extends": "cfp"
 }

@@ -68,16 +68,16 @@ class Yuntongxun {
     if (this.options.debug) {
       this.options.logger(`opts[${JSON.stringify(opts)}]`);
     }
-    this.rs.post(url, opts, (err, response, body) => {
+    this.rs.post(url, opts, (err, response, responseBody) => {
       if (err) {
         this.options.logger(`Request failed. err[${err}]`);
         return deferred.reject(err);
       }
-      if (!body) {
+      if (!responseBody) {
         this.options.logger(`Request err. statusCode[${response.statusCode}] statusMessage[${response.statusMessage}]`);
         return deferred.reject('null response body');
       }
-      return deferred.resolve(body);
+      return deferred.resolve(responseBody);
     }).on('complete', (response) => {
       this.options.logger(`Request complete. elapsedTime[${response.elapsedTime}]`);
     });

@@ -7,20 +7,20 @@ Examples
 --------
 
 ``` js
-var Yuntongxun = require('yuntongxun-sdk');
+import Yuntongxun from 'yuntongxun-sdk';
 
-var yuntongxun = new Yuntongxun({
-    urlPrefix: 'https://app.cloopen.com:8883',
-    version: '2013-12-26',
-    accountSid: '<Your accountSid>',
-    authToken: '<Your authToken>',
-    appId: '<Your appId>'
+const yuntongxun = new Yuntongxun({
+  urlPrefix: 'https://app.cloopen.com:8883',
+  version: '2013-12-26',
+  accountSid: '<Your accountSid>',
+  authToken: '<Your authToken>',
+  appId: '<Your appId>'
 });
 
-yuntongxun.voiceVerify('13700000000', '123456').then(function(callSid) {
-    console.log(callSid);
-}, function(err) {
-    console.error(err);
+yuntongxun.voiceVerify('13700000000', '123456').then((callSid) => {
+  console.log(callSid);
+}, (err) => {
+  console.error(err);
 });
 ```
 
@@ -52,11 +52,11 @@ Construct a new yuntongxun object
 
 ``` js
 {
-    urlPrefix: 'https://app.cloopen.com:8883',
-    version: '2013-12-26',
-    useSubAccount: false,
-    debug: false,
-    logger: false
+  urlPrefix: 'https://app.cloopen.com:8883',
+  version: '2013-12-26',
+  useSubAccount: false,
+  debug: false,
+  logger: false
 }
 ```
 
@@ -78,8 +78,8 @@ Construct a new yuntongxun object
 `logger` function accept only one argument `msg` like
 
 ``` js
-function(msg) {
-    // do some thing...
+(msg) => {
+  // do some thing...
 }
 ```
 

@@ -2,8 +2,8 @@ import crypto from 'crypto';
 import request from 'request';
 import Q from 'q';
 import dateFormat from 'dateformat';
-import defaults from 'lodash/object/defaults';
-import noop from 'lodash/utility/noop';
+import defaults from 'lodash/defaults';
+import noop from 'lodash/noop';
 
 class Yuntongxun {
   static defaultOptions = {

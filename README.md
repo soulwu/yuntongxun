@@ -2,6 +2,7 @@
 Node.js SDK for yuntongxun RestAPI.
 
 [![Build Status](https://travis-ci.org/soulwu/yuntongxun.svg?branch=master)](https://travis-ci.org/soulwu/yuntongxun)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Examples
 --------
@@ -110,11 +111,6 @@ Send Template SMS identified by `templateId` to `mobile` with template data `dat
 Todo List
 ---------
  - [ ] To implement other Rest API interface.
-
-
-ChangeLog
----------
-[Change Log](CHANGELOG.md)
 
 License
 -------

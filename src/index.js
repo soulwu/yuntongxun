@@ -1,7 +1,6 @@
 import crypto from 'crypto';
 import request from 'request';
-import Q from 'q';
-import dateFormat from 'dateformat';
+import dateformat from 'dateformat';
 import defaults from 'lodash/defaults';
 import noop from 'lodash/noop';
 
@@ -34,7 +33,7 @@ class Yuntongxun {
     let sig = md5sum.digest('hex');
     sig = sig.toUpperCase();
     if (this.options.debug) {
-      this.options.logger(`sig[${sig}]`);
+      this.options.logger(`sig: ${sig}`);
     }
 
     return sig;
@@ -44,15 +43,14 @@ class Yuntongxun {
     const buf = new Buffer(`${this.options.accountSid}:${timestamp}`, 'utf8');
     const authorization = buf.toString('base64');
     if (this.options.debug) {
-      this.options.logger(`authorization[${authorization}]`);
+      this.options.logger(`authorization: ${authorization}`);
     }
 
     return authorization;
   }
 
   _request(url, body) {
-    const deferred = Q.defer();
-    const timestamp = dateFormat(new Date(), 'yyyymmddHHMMss');
+    const timestamp = dateformat(new Date(), 'yyyymmddHHMMss');
     const authorization = this._getAuthorization(timestamp);
     const sig = this._getSig(timestamp);
     const opts = {
@@ -66,78 +64,68 @@ class Yuntongxun {
     };
 
     if (this.options.debug) {
-      this.options.logger(`opts[${JSON.stringify(opts)}]`);
+      this.options.logger(`opts: ${JSON.stringify(opts)}`);
     }
-    this.rs.post(url, opts, (err, response, responseBody) => {
-      if (err) {
-        this.options.logger(`Request failed. err[${err}]`);
-        return deferred.reject(err);
-      }
-      if (!responseBody) {
-        this.options.logger(`Request err. statusCode[${response.statusCode}] statusMessage[${response.statusMessage}]`);
-        return deferred.reject('null response body');
-      }
-      return deferred.resolve(responseBody);
-    }).on('complete', (response) => {
-      this.options.logger(`Request complete. elapsedTime[${response.elapsedTime}]`);
-    });
 
-    return deferred.promise;
+    return new Promise((resolve, reject) => {
+      this.rs.post(url, opts, (err, message, body) => {
+        if (err) {
+          this.options.logger(`Request failed. err[${err}]`);
+          reject(err);
+          return;
+        }
+        if (!body) {
+          this.options.logger(`Request err. statusCode[${message.statusCode}] statusMessage[${message.statusMessage}]`);
+          reject('null response body');
+          return;
+        }
+        resolve(body);
+      }).on('complete', (response) => {
+        this.options.logger(`Request complete. elapsedTime[${response.elapsedTime}]`);
+      });
+    });
   }
 
   voiceVerify(to, verifyCode, displayNum = '', playTimes = 3) {
-    const deferred = Q.defer();
-
     if (!to || !verifyCode) {
-      return deferred.reject('mobile or token empty');
+      return Promise.reject('mobile or token empty');
     }
-    this._request('/Calls/VoiceVerify', {
+
+    return this._request('/Calls/VoiceVerify', {
       appId: this.options.appId,
       verifyCode,
       to,
       displayNum,
       playTimes
     }).then((body) => {
-      if (body.statusCode === '000000') {
-        const callSid = body.VoiceVerify && body.VoiceVerify.callSid;
-        this.options.logger(`Request voiceVerify succ. callSid[${callSid}]`);
-        deferred.resolve(callSid);
-      } else {
+      if (body.statusCode !== '000000') {
         this.options.logger(`Request voiceVerify err. body[${JSON.stringify(body)}]`);
-        deferred.reject('response invalid');
+        throw new Error('response invalid');
       }
-    }, (err) => {
-      deferred.reject(err);
+      const callSid = body.VoiceVerify && body.VoiceVerify.callSid;
+      this.options.logger(`Request voiceVerify succ. callSid[${callSid}]`);
+      return callSid;
     });
-
-    return deferred.promise;
   }
 
   templateSms(to, templateId, datas = []) {
-    const deferred = Q.defer();
-
     if (!to || !templateId) {
-      return deferred.reject('mobile or templateId empty');
+      return Promise.reject('mobile or templateId empty');
     }
-    this._request('/SMS/TemplateSMS', {
+    return this._request('/SMS/TemplateSMS', {
       appId: this.options.appId,
       to,
       templateId,
       datas
     }).then((body) => {
-      if (body.statusCode === '000000') {
-        const smsMessageSid = body.TemplateSMS && body.TemplateSMS.smsMessageSid;
-        this.options.logger(`Request templateSms succ. smsMessageSid[${smsMessageSid}]`);
-        deferred.resolve(smsMessageSid);
-      } else {
+      if (body.statusCode !== '000000') {
         this.options.logger(`Request templateSms err. body[${JSON.stringify(body)}]`);
-        deferred.reject('response invalid');
+        throw new Error('response invalid');
       }
-    }, (err) => {
-      deferred.reject(err);
+      const smsMessageSid = body.TemplateSMS && body.TemplateSMS.smsMessageSid;
+      this.options.logger(`Request templateSms succ. smsMessageSid[${smsMessageSid}]`);
+      return smsMessageSid;
     });
-
-    return deferred.promise;
   }
 }
 

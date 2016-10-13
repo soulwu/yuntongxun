@@ -41,6 +41,7 @@ Documents
 - [Class: Yuntongxun](#class-yuntongxun)
     - [new Yuntongxun(options)](#new-yuntongxunoptions)
     - [yuntongxun.voiceVerify(mobile, token[, displayNum, playTimes])](#yuntongxunvoiceverifymobile-token-displaynum-playtimes)
+    - [yuntongxun.callResult(callSid)](#yuntongxunvoiceverifymobile-token-displaynum-playtimes)
     - [yuntongxun.templateSms(mobile, templateId[, datas])](#yuntongxuntemplatesmsmobile-templateid-datas)
 
 ### Class: Yuntongxun
@@ -97,6 +98,13 @@ Send Voice Verify `token` to `mobile` with CID `displayNum` and repeat `playTime
 | token      | string   | Token played                          | required    |
 | displayNum | string   | CID                                   | optional    |
 | playTimes  | integer  | Repeat play times                     | optional    |
+
+#### yuntongxun.callResult(callSid)
+Get call result `callSid`
+
+| Name       | type     | Description                           | Requirement |
+| ---------- | -------- | ------------------------------------- | ----------- |
+| callSid    | string   | Call ID 	                           | required
 
 #### yuntongxun.templateSms(mobile, templateId[, datas])
 Send Template SMS identified by `templateId` to `mobile` with template data `datas`

@@ -41,7 +41,7 @@ Documents
 - [Class: Yuntongxun](#class-yuntongxun)
     - [new Yuntongxun(options)](#new-yuntongxunoptions)
     - [yuntongxun.voiceVerify(mobile, token[, displayNum, playTimes])](#yuntongxunvoiceverifymobile-token-displaynum-playtimes)
-    - [yuntongxun.callResult(callSid)](#yuntongxunvoiceverifymobile-token-displaynum-playtimes)
+    - [yuntongxun.callResult(callSid)](#yuntongxuncallresultcallsid))
     - [yuntongxun.templateSms(mobile, templateId[, datas])](#yuntongxuntemplatesmsmobile-templateid-datas)
 
 ### Class: Yuntongxun

@@ -63,12 +63,12 @@ class Yuntongxun {
       qs: {
         sig
       },
-      method: method
+      method
     };
-    if (method == "GET") {
-      defaults(opts['qs'], body);
+    if (method === 'GET') {
+      defaults(opts.qs, body);
     } else {
-      opts['body'] = body;
+      opts.body = body;
     }
 
     if (this.options.debug) {
@@ -121,7 +121,7 @@ class Yuntongxun {
       return Promise.reject('callsid empty');
     }
     return this._request('/CallResult', {
-      callsid: callsid,
+      callsid
     }, 'GET').then((body) => {
       return body;
     });

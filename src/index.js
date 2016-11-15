@@ -49,10 +49,13 @@ class Yuntongxun {
     return authorization;
   }
 
-  _request(url, body) {
+  _request(url, body, method) {
     const timestamp = dateformat(new Date(), 'yyyymmddHHMMss');
     const authorization = this._getAuthorization(timestamp);
     const sig = this._getSig(timestamp);
+    if (!method) {
+      method = 'POST';
+    }
     const opts = {
       headers: {
         authorization
@@ -60,15 +63,20 @@ class Yuntongxun {
       qs: {
         sig
       },
-      body
+      method
     };
+    if (method === 'GET') {
+      defaults(opts.qs, body);
+    } else {
+      opts.body = body;
+    }
 
     if (this.options.debug) {
       this.options.logger(`opts: ${JSON.stringify(opts)}`);
     }
 
     return new Promise((resolve, reject) => {
-      this.rs.post(url, opts, (err, message, body) => {
+      this.rs(url, opts, (err, message, body) => {
         if (err) {
           this.options.logger(`Request failed. err[${err}]`);
           reject(err);
@@ -105,6 +113,17 @@ class Yuntongxun {
       const callSid = body.VoiceVerify && body.VoiceVerify.callSid;
       this.options.logger(`Request voiceVerify succ. callSid[${callSid}]`);
       return callSid;
+    });
+  }
+
+  callResult(callsid) {
+    if (!callsid) {
+      return Promise.reject('callsid empty');
+    }
+    return this._request('/CallResult', {
+      callsid
+    }, 'GET').then((body) => {
+      return body;
     });
   }
 
